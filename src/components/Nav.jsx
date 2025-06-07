@@ -1,0 +1,12 @@
+import React from 'react'
+
+const Nav = () => {
+  return (
+    <div className='w-screen h-16 border-b border-gray-200 bg-white z-10 fixed top-0 left-0 flex items-center justify-between px-4'>
+        <h3 className='font-semibold text-xl text-black'>Intervue.</h3>
+        <div className='h-8 w-8 rounded-full bg-black'></div>
+    </div>
+  )
+}
+
+export default Nav

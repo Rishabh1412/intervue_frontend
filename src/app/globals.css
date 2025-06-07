@@ -1,6 +1,31 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Allan:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-dms: 'DM Sans', sans-serif;
+}
+
+.allan-regular {
+  font-family: "Allan", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.allan-bold {
+  font-family: "Allan", 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@theme{
+  --color-primary-red: #FF0B55;
+  --color-secondary-red: #CF0F47;
+  --color-light-red: #FFDEDE;
+  --color-black-dark: #000000;
+  --color-off-white: #F5F5F5;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,15 +44,28 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "DM Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f3e8ff;
+  border-radius: 10px; /* pastel purple */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #b36af7; /* dark purple */
+  border-radius: 10px;
+}
+
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  font-family: var(--font-body);
 }
 
 a {
