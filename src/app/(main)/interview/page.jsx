@@ -6,12 +6,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import TagBlock from "@/components/TagBlock";
 import AnswerPanel from "@/components/AnswerPanel";
 
-
 const Page = () => {
   const [marked, setMarked] = useState(false);
   const [showAnimation, setShowAnimation] = useState(true);
   const [greeting, setGreeting] = useState("Hello");
   const [currentAnswer, setCurrentAnswer] = useState("");
+
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const searchParams = useSearchParams();
 
   const handleAnswerChange = (value) => {
@@ -32,18 +36,64 @@ const Page = () => {
   };
 
   useEffect(() => {
+    const controller = new AbortController(); // allows fetch cancellation
+    const fetchQuestions = async () => {
+      const role = searchParams.get("role");
+      const level = searchParams.get("level");
+      const interviewType = searchParams.get("interviewType");
+      const language = searchParams.get("language");
+
+      if (!role || !level || !interviewType || !language) {
+        setError("Missing required parameters");
+        return;
+      }
+
+      setLoading(true);
+      setError("");
+
+      try {
+        const res = await fetch("http://localhost:5000/api/protected/generateQuestions", {
+          method: "POST",
+          signal: controller.signal,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            role,
+            level,
+            interviewType,
+            language,
+            numberOfQuestions: 5,
+          }),
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch questions");
+        }
+
+        const data = await res.json();
+        setQuestions(data.questions || []);
+      } catch (err) {
+        if (err.name === "AbortError") return; // don't update state on unmount
+        console.error(err);
+        setError("Could not load questions");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
+
+    return () => controller.abort(); // cleanup
+  }, [searchParams]);
+
+  useEffect(() => {
     const name = searchParams.get("name")?.trim();
     if (name && name.toLowerCase() !== "anonymous" && name !== "") {
       setGreeting(`Hello, ${name}`);
     } else {
       setGreeting("Hello, Interviewee 👋");
     }
-
-    const timer = setTimeout(() => {
-      setShowAnimation(false);
-    }, 2800); // ✨ increased to wait for text exit + gate animation
-
-    return () => clearTimeout(timer);
   }, [searchParams]);
 
   return (
@@ -55,32 +105,28 @@ const Page = () => {
             {/* Greeting Message */}
             <motion.div
               key="greeting"
-              className="absolute inset-0 z-[60] flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.8 }}
+              className="absolute top-0 left-0 w-full bg-gradient-to-b from-purple-500 to-purple-600 inset-0 z-[60] flex items-center justify-center"
+              initial={{ opacity: 1, scale: 1.2 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.25, y: -60, rotate: -3 }}
+              exit={{ opacity: 0, scale: 1.25, y: -60 }}
               transition={{
                 duration: 0.6,
                 ease: "easeOut",
                 delay: 0.2,
               }}
             >
-              <h1 className="text-4xl font-bold text-white">{greeting}</h1>
+              <div className="flex gap-4 flex-col items-center">
+                <h1 className="text-4xl font-bold text-white">{greeting}</h1>
+                <button
+                  onClick={() => {
+                    setShowAnimation(false);
+                  }}
+                  className="text-lg font-semibold text-black tracking-tight bg-white py-2 px-6 w-fit rounded-4xl"
+                >
+                  Start
+                </button>
+              </div>
             </motion.div>
-
-            {/* Gate Animation - starts after greeting exits */}
-            <motion.div
-              key="top"
-              className="absolute top-0 left-0 w-full bg-gradient-to-b from-purple-500 to-purple-600 z-50"
-              initial={{ height: "100%" }}
-              animate={{ height: 0 }}
-              exit={{ height: 0 }}
-              transition={{
-                duration: 1,
-                ease: "easeInOut",
-                delay: 1.4, // 👈 0.2 (greeting delay) + 0.6 (greeting duration) + 0.6 buffer
-              }}
-            />
           </>
         )}
       </AnimatePresence>
@@ -203,7 +249,7 @@ const Page = () => {
                       Explain the difference between client-side rendering (CSR)
                       and server-side rendering (SSR) in web development. What
                       are the pros and cons of each approach, and when would you
-                      prefer one over the other? 
+                      prefer one over the other?
                     </p>
                   </div>
                 </div>

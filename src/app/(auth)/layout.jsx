@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
             <Image
               src="/img.jpg"
               alt="Auth Image"
-              width={800}
+              width={1000}
               height={800}
               className="object-cover w-full h-full"
               priority
