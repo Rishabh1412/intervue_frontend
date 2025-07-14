@@ -20,5 +20,5 @@ export function middleware(request) {
 
 // Match only specific routes
 export const config = {
-  matcher: ['/interview/:path*', '/interview-user-data/:path*', '/profile/:path*'],
+  matcher: ['/interview/:path*', '/interview-user-data/:path*', '/profile/:path*', '/user-dashboard/:path*'],
 };

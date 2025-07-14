@@ -26,7 +26,7 @@ const Page = () => {
     if (res.ok) {
       alert("Login successful!");
       // You can also store token in localStorage or use cookies
-      router.push('/interview-user-data'); // Redirect after login
+      router.push('/user-dashboard'); // Redirect after login
     } else {
       alert(data.message || "Login failed.");
     }

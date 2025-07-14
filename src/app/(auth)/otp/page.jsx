@@ -32,7 +32,7 @@ const page = () => {
 
     if (res.ok) {
       alert("OTP verified successfully!");
-      router.push('/interview-user-data');
+      router.push('/user-dashboard');
        // redirect to interview page or wherever needed
     } else {
       alert(data.message || "Invalid OTP.");

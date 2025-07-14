@@ -18,7 +18,7 @@ const Page = () => {
             </h1>
 
             {/* CTA Button */}
-            <Link className="" href="/interview-user-data">
+            <Link className="m-0 p-0 cursor-pointer z-20" href="/user-dashboard">
               <Button text="Get Started"/>
             </Link>
           </div>
