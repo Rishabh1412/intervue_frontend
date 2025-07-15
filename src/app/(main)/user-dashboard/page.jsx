@@ -5,7 +5,7 @@ const page = () => {
   const [username, setUsername] = useState(null);
   async function getUser() {
   try {
-    const res = await fetch('http://localhost:5000/api/protected/user', {
+    const res = await fetch(`${process.env.SERVER_URL}/api/protected/user`, {
       credentials: 'include',
     });
 

@@ -5,7 +5,7 @@ import React from 'react';
 const Nav = () => {
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/logout', {
+      const response = await fetch(`${process.env.SERVER_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include', // This ensures cookies are sent
         headers: {

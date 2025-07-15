@@ -21,7 +21,7 @@ const page = () => {
         alert("Email not found in URL.");
         return;
     } 
-    const res = await fetch('http://localhost:5000/api/auth/verify-otp', {
+    const res = await fetch(`${process.env.SERVER_URL}/api/auth/verify-otp`, {
       method: 'POST',
       credentials: 'include', 
       headers: { 'Content-Type': 'application/json' },

@@ -25,7 +25,7 @@ const Page = () => {
       if (selectedTopic) query.append("topic", selectedTopic);
 
       const res = await fetch(
-        `http://localhost:5000/api/protected/get-user-questions?${query.toString()}`,
+        `${process.env.SERVER_URL}/api/protected/get-user-questions?${query.toString()}`,
         { credentials: "include" }
       );
 

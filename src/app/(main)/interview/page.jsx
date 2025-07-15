@@ -31,7 +31,7 @@ const Page = () => {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/protected/evaluate-answer",
+        `${process.env.SERVER_URL}/api/protected/evaluate-answer`,
         {
           method: "POST",
           credentials: "include",
@@ -64,7 +64,7 @@ const Page = () => {
   const saveUserQuestion = async (questionData) => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/protected/add-user-question",
+        `${process.env.SERVER_URL}/api/protected/add-user-question`,
         {
           method: "POST",
           credentials: "include",
@@ -82,7 +82,7 @@ const Page = () => {
   const deleteUserQuestion = async (questionText) => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/protected/delete-user-question",
+        `${process.env.SERVER_URL}/api/protected/delete-user-question`,
         {
           method: "DELETE",
           credentials: "include",
@@ -185,7 +185,7 @@ const Page = () => {
 
       try {
         const res = await fetch(
-          "http://localhost:5000/api/protected/generate-questions",
+          `${process.env.SERVER_URL}/api/protected/generate-questions`,
           {
             method: "POST",
             credentials: "include", // Send cookie
@@ -210,7 +210,7 @@ const Page = () => {
         if (data.questions.length > 0) {
           data.questions.forEach(async (q) => {
             try {
-              await fetch("http://localhost:5000/api/auth/add-question", {
+              await fetch(`${process.env.SERVER_URL}/api/auth/add-question`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
