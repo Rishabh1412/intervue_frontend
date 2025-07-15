@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import TagBlock from "@/components/TagBlock";
 import AnswerPanel from "@/components/AnswerPanel";
 
-const Page = () => {
+const InterviewPage = () => {
   const [markedQuestions, setMarkedQuestions] = useState({});
   const [showAnimation, setShowAnimation] = useState(true);
   const [greeting, setGreeting] = useState("Hello");
@@ -503,4 +503,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default InterviewPage;
