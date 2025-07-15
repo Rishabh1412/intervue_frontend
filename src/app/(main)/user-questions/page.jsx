@@ -25,7 +25,7 @@ const Page = () => {
       if (selectedTopic) query.append("topic", selectedTopic);
 
       const res = await fetch(
-        `${process.env.SERVER_URL}/api/protected/get-user-questions?${query.toString()}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/protected/get-user-questions?${query.toString()}`,
         { credentials: "include" }
       );
 

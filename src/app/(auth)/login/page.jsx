@@ -14,7 +14,7 @@ const Page = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${process.env.SERVER_URL}/api/auth/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
       method: 'POST',
       credentials: 'include', 
       headers: { 'Content-Type': 'application/json' },
