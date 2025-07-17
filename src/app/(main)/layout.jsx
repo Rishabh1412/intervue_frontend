@@ -1,8 +1,5 @@
-'use client';
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Nav from "@/components/Nav";
+import withAuth from "@/components/withAuth";
 
 export const metadata = {
   title: "My App",
@@ -10,21 +7,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-    }
-  }, []);
-
   return (
     <html lang="en">
       <head />
       <body>
-        <Nav className="z-20" />
-        <main className="min-h-screen">{children}</main>
+        <Nav className="z-20"/>
+        <main className="min-h-screen">{withAuth(children)}</main>
       </body>
     </html>
   );
