@@ -1,11 +1,13 @@
 
 import InterviewForm from "@/components/InterviewForm";
-import withAuth from "@/components/withAuth";
+import ProtectedPageWrapper from "@/components/ProtectedPageWrapper";
 import React from "react";
+
 
 const page = () => {
   return (
     <>
+    <ProtectedPageWrapper>
         <div
           className="w-screen h-screen flex items-center justify-center"
           style={{
@@ -23,6 +25,7 @@ const page = () => {
             <InterviewForm />
           </div>
         </div>
+        </ProtectedPageWrapper>
     </>
   );
 };

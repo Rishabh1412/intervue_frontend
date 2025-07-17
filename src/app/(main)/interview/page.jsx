@@ -1,12 +1,13 @@
 import { Suspense } from "react";
 import InterviewPage from "@/components/InterviewPage";
-import withAuth from "@/components/withAuth";
+import ProtectedPageWrapper from "@/components/ProtectedPageWrapper";
 
-const Page = ()=>{
+export default function Page() {
   return (
-    <Suspense fallback={<div>Loading interview page...</div>}>
-      <InterviewPage />
-    </Suspense>
+    <ProtectedPageWrapper>
+      <Suspense fallback={<div>Loading interview page...</div>}>
+        <InterviewPage />
+      </Suspense>
+    </ProtectedPageWrapper>
   );
 }
-export default withAuth(Page);

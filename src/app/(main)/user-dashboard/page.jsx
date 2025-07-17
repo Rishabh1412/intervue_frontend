@@ -1,7 +1,8 @@
 "use client";
+import ProtectedPageWrapper from "@/components/ProtectedPageWrapper";
 import Link from "next/link";
 import React, { use, useEffect, useState } from "react";
-import withAuth from "@/components/withAuth";
+
 const page = () => {
   const [username, setUsername] = useState(null);
   async function getUser() {
@@ -36,6 +37,7 @@ const page = () => {
   }, []);
 
   return (
+    <ProtectedPageWrapper>
     <div className="flex flex-col h-screen w-screen items-center md:px-10 px-2 py-4 bg-[#F6F4FB]">
       <div className="w-full px-4 py-4 mt-12">
         <h1 className="font-bold text-3xl text-[#232323]">
@@ -117,7 +119,8 @@ const page = () => {
         </div>
       </div>
     </div>
+    </ProtectedPageWrapper>
   );
 };
 
-export default withAuth(page);
+export default page;

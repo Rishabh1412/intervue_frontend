@@ -1,5 +1,5 @@
 // app/profile/page.jsx
-import withAuth from "@/components/withAuth";
+import ProtectedPageWrapper from "@/components/ProtectedPageWrapper";
 import React from "react";
 
 const ProfilePage = () => {
@@ -32,6 +32,7 @@ const ProfilePage = () => {
   };
 
   return (
+    <ProtectedPageWrapper>
     <div className="bg-white text-black-dark min-h-screen overflow-y-auto">
       <div className="lg:max-w-2xl md:max-w-5xl max-w-full gap-4 flex flex-col mx-auto p-4 pt-18">
         {/* Header */}
@@ -76,7 +77,8 @@ const ProfilePage = () => {
         </div>
       </div>
     </div>
+    </ProtectedPageWrapper>
   );
 };
 
-export default withAuth(ProfilePage);
+export default ProfilePage;

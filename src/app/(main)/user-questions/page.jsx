@@ -1,5 +1,6 @@
 "use client";
-import withAuth from "@/components/withAuth";
+
+import ProtectedPageWrapper from "@/components/ProtectedPageWrapper";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -60,6 +61,7 @@ const Page = () => {
   }, [selectedLevel, selectedTopic]);
 
   return (
+    <ProtectedPageWrapper>
     <div className="flex flex-col h-screen w-screen items-center pb-4 md:px-10 px-2 bg-[#F6F4FB]">
       <div className="w-full py-4 mt-14 flex justify-between items-center">
         <h1 className="font-medium text-3xl text-black gap-2 flex items-center justify-center tracking-tight">
@@ -168,7 +170,8 @@ const Page = () => {
         )}
       </div>
     </div>
+    </ProtectedPageWrapper>
   );
 };
 
-export default withAuth(Page);
+export default Page;
