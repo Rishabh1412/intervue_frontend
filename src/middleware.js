@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server';
 export function middleware(request) {
   console.log('Middleware triggered for:', request.nextUrl.pathname);
 
-  const token = request.cookies.get('token')?.value;
+  const token = request.cookies.get('token')?.value || localStorage.getItem('token');
   console.log('Token:', token);
 
   const isAuthRoute = request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/register');
