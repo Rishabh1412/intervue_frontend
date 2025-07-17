@@ -28,7 +28,8 @@ const page = () => {
       body: JSON.stringify({ email, otp }), // get `email` from URL or props
     });
 
-    const data = await res.json();
+    const { token } = await res.json();
+    localStorage.setItem("token", token);
 
     if (res.ok) {
       alert("OTP verified successfully!");

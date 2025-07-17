@@ -5,11 +5,17 @@ import React from 'react';
 const Nav = () => {
   const handleLogout = async () => {
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You are not logged in.');
+        return;
+      }
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include', // This ensures cookies are sent
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Include token in header
           // Don't include Authorization header for HTTP-only cookies
         },
       });

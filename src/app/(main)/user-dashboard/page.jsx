@@ -1,31 +1,38 @@
-'use client'
+"use client";
 import Link from "next/link";
 import React, { use, useEffect, useState } from "react";
 const page = () => {
   const [username, setUsername] = useState(null);
   async function getUser() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/protected/user`, {
-      credentials: 'include',
-    });
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/protected/user`,
+        {
+          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    if (!res.ok) throw new Error("Failed to fetch user");
+      if (!res.ok) throw new Error("Failed to fetch user");
 
-    const data = await res.json(); // parse JSON response
-    return data; // should contain { name: ... } or similar
-  } catch (err) {
-    console.error("Error fetching user:", err);
-    return null;
+      const data = await res.json(); // parse JSON response
+      return data; // should contain { name: ... } or similar
+    } catch (err) {
+      console.error("Error fetching user:", err);
+      return null;
+    }
   }
-}
   useEffect(() => {
-  async function fetchUser() {
-    const user = await getUser();
-    if (user?.name) setUsername(user.name);
-  }
+    async function fetchUser() {
+      const user = await getUser();
+      if (user?.name) setUsername(user.name);
+    }
 
-  fetchUser(); // call async function inside useEffect
-}, []);
+    fetchUser(); // call async function inside useEffect
+  }, []);
 
   return (
     <div className="flex flex-col h-screen w-screen items-center md:px-10 px-2 py-4 bg-[#F6F4FB]">
@@ -36,13 +43,10 @@ const page = () => {
       </div>
       <div className="flex w-full gap-3 rounded-2xl h-full">
         <div className="w-full gap-2 flex-col flex rounded-xl">
-          <div className="bg-transparent h-full p-8">
-            
-          </div>
+          <div className="bg-transparent h-full p-8"></div>
           <div className="bg-white rounded-xl shadow-sm h-full p-8 flex justify-between items-center">
             <div>
               <h4 className="text-lg font-semibold  text-gray-800">
-                
                 Saved Questions
               </h4>
               <Link href="/user-questions">
@@ -54,7 +58,6 @@ const page = () => {
                 Across all roles and levels
               </p>
             </div>
-            
           </div>
         </div>
         <div className="w-full bg-white border relative border-gray-200 shadow-sm py-8 px-8 rounded-xl flex flex-col gap-8 overflow-hidden justify-end items-center">
@@ -88,10 +91,7 @@ const page = () => {
           </div>
         </div>
         <div className="w-full rounded-xl flex flex-col gap-2">
-          
-          <div className="bg-transparent rounded-xl h-full p-8">
-            
-          </div>
+          <div className="bg-transparent rounded-xl h-full p-8"></div>
           <div className="bg-white rounded-xl shadow-sm h-full p-8">
             <h4 className="text-lg font-semibold text-gray-800 mb-4">
               Previous Interviews

@@ -21,7 +21,8 @@ const Page = () => {
       body: JSON.stringify({ email, password }),
     });
 
-    const data = await res.json();
+    const { token } = await res.json();
+    localStorage.setItem("token", token);
 
     if (res.ok) {
       alert("Login successful!");

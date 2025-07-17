@@ -20,13 +20,21 @@ const Page = () => {
     setError("");
 
     try {
+      const token = localStorage.getItem("token");
       const query = new URLSearchParams();
       if (selectedLevel) query.append("level", selectedLevel);
       if (selectedTopic) query.append("topic", selectedTopic);
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/protected/get-user-questions?${query.toString()}`,
-        { credentials: "include" }
+        `${
+          process.env.NEXT_PUBLIC_API_URL
+        }/api/protected/get-user-questions?${query.toString()}`,
+        {
+          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (!res.ok) throw new Error("Failed to fetch questions");
@@ -59,7 +67,7 @@ const Page = () => {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                 viewBox="0 0 24 24"
+                viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
                 className="size-6"
