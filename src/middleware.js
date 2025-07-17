@@ -3,10 +3,11 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 
+
 export function middleware(request) {
   console.log('Middleware triggered for:', request.nextUrl.pathname);
 
-  const token = request.cookies.get('token')?.value || localStorage.getItem('token');
+  const token = request.cookies.get('token')?.value;
   console.log('Token:', token);
 
   const isAuthRoute = request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/register');

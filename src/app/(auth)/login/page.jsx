@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import "../auth.css";
+import Cookies from "js-cookie";
 
 const Page = () => {
   const router = useRouter();
@@ -23,12 +24,12 @@ const Page = () => {
 
     const { token } = await res.json();
     localStorage.setItem("token", token);
-
+    Cookies.set('token', token, { expires: 7, secure: true, httpOnly: true });
     if (res.ok) {
       alert("Login successful!");
       // You can also store token in localStorage or use cookies
-
-      router.replace('/user-dashboard'); // Redirect after login
+      
+      router.push('/user-dashboard'); // Redirect after login
     } else {
       alert(data.message || "Login failed.");
     }
