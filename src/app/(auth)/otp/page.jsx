@@ -2,11 +2,13 @@
 import React from 'react';
 import { useRef } from 'react';
 import '../auth.css';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
     const inputs = useRef([]);
     const handleSubmit = async (e) => {
   e.preventDefault();
+  const router = useRouter();
 
   // collect OTP digits from inputs
   const otp = inputs.current.map(input => input.value).join('');
