@@ -1,7 +1,7 @@
 
 import InterviewForm from "@/components/InterviewForm";
+import withAuth from "@/components/withAuth";
 import React from "react";
-
 
 const page = () => {
   return (
@@ -27,4 +27,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default withAuth(page);

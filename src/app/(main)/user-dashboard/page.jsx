@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { use, useEffect, useState } from "react";
+import withAuth from "@/components/withAuth";
 const page = () => {
   const [username, setUsername] = useState(null);
   async function getUser() {
@@ -119,4 +120,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default withAuth(page);

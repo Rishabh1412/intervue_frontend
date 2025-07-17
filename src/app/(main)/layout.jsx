@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav";
-import withAuth from "@/components/withAuth";
+
 
 export const metadata = {
   title: "My App",
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
       <head />
       <body>
         <Nav className="z-20"/>
-        <main className="min-h-screen">{withAuth(children)}</main>
+        <main className="min-h-screen">{children}</main>
       </body>
     </html>
   );

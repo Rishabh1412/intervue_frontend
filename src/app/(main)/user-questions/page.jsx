@@ -1,4 +1,5 @@
 "use client";
+import withAuth from "@/components/withAuth";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -170,4 +171,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default withAuth(Page);

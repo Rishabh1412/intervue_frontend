@@ -1,4 +1,5 @@
 // app/profile/page.jsx
+import withAuth from "@/components/withAuth";
 import React from "react";
 
 const ProfilePage = () => {
@@ -78,4 +79,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default withAuth(ProfilePage);
