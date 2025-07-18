@@ -79,7 +79,7 @@ const page = () => {
   };
   return (
     <div className="login-page px-4">
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form px-8" onSubmit={handleSubmit}>
         <h3 className="w-full text-center font-black text-xl text-[#232323]">
           OTP Verification
         </h3>

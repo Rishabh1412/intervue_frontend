@@ -41,7 +41,7 @@ const Page = () => {
 
   return (
     <div className="login-page px-4">
-      <form className="form" onSubmit={handleLogin}>
+      <form className="form px-8" onSubmit={handleLogin}>
         <h3 className="w-full text-center font-black text-xl text-[#232323]">
           Login
         </h3>
