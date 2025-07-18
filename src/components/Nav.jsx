@@ -27,6 +27,7 @@ const Nav = () => {
 
       // Optional: Redirect to login or home page
       window.location.href = '/login';
+      localStorage.removeItem('token');
     } catch (error) {
       console.error('Logout error:', error.message);
       alert('Logout failed: ' + error.message);

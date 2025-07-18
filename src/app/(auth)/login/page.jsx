@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import "../auth.css";
 import Cookies from "js-cookie";
+import Loader from "@/components/Loader";
 
 const Page = () => {
   const router = useRouter();
-
+  const [loading, setLoading] = useState(false);
   // State to store form input
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,6 +15,7 @@ const Page = () => {
   // Login submit handler
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
       method: 'POST',
@@ -27,10 +29,12 @@ const Page = () => {
     Cookies.set('token', token, { expires: 7, secure: true, httpOnly: true });
     if (res.ok) {
       alert("Login successful!");
+      setLoading(false);
       // You can also store token in localStorage or use cookies
       
       router.push('/user-dashboard'); // Redirect after login
     } else {
+      setLoading(false);
       alert(data.message || "Login failed.");
     }
   };
@@ -81,7 +85,9 @@ const Page = () => {
           />
         </div>
 
-        <button type="submit" className="button-submit">Sign In</button>
+        <button type="submit" className={`button-submit ${loading ? 'disabled' : ''}`}>
+          {loading ? <span className="flex gap-2 items-center justify-center"><span><Loader size={16} color="#ffffff"/></span>Logging in...</span> : "Login"}
+        </button>
 
         <p className="p">
           Don't have an account?{" "}

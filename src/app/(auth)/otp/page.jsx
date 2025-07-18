@@ -1,56 +1,63 @@
-'use client';
-import React from 'react';
-import { useRef } from 'react';
-import '../auth.css';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useState } from "react";
+import { useRef } from "react";
+import "../auth.css";
+import { useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
 
 const page = () => {
-    const inputs = useRef([]);
-    const handleSubmit = async (e) => {
-  e.preventDefault();
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const inputs = useRef([]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const router = useRouter();
 
-  // collect OTP digits from inputs
-  const otp = inputs.current.map(input => input.value).join('');
-  if (otp.length < 6) {
-        alert("Please enter a complete 6-digit OTP.");
-        return;
+    // collect OTP digits from inputs
+    const otp = inputs.current.map((input) => input.value).join("");
+    if (otp.length < 6) {
+      alert("Please enter a complete 6-digit OTP.");
+      return;
     }
-  console.log("OTP Entered:", otp);
-  try {
-    const email= new URLSearchParams(window.location.search).get('email');
-    if (!email) {
+    console.log("OTP Entered:", otp);
+    try {
+      const email = new URLSearchParams(window.location.search).get("email");
+      if (!email) {
         alert("Email not found in URL.");
         return;
-    } 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify-otp`, {
-      method: 'POST',
-      credentials: 'include', 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, otp }), // get `email` from URL or props
-    });
+      }
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify-otp`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, otp }), // get `email` from URL or props
+        }
+      );
 
-    const { token } = await res.json();
-    localStorage.setItem("token", token);
+      const { token } = await res.json();
+      localStorage.setItem("token", token);
 
-    if (res.ok) {
-      alert("OTP verified successfully!");
-      router.push('/user-dashboard');
-       // redirect to interview page or wherever needed
-    } else {
-      alert(data.message || "Invalid OTP.");
+      if (res.ok) {
+        alert("OTP verified successfully!");
+        router.push("/user-dashboard");
+        // redirect to interview page or wherever needed
+      } else {
+        setLoading(false);
+        alert(data.message || "Invalid OTP.");
+      }
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("An error occurred.");
     }
-  } catch (err) {
-    console.error(err);
-    alert("An error occurred.");
-  }
-    
 
-  // call your API or handle verification here
+    // call your API or handle verification here
 
-  inputs.current.forEach((input) => (input.value = ""));
-  inputs.current[0].focus(); 
-};
+    inputs.current.forEach((input) => (input.value = ""));
+    inputs.current[0].focus();
+  };
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -97,16 +104,17 @@ const page = () => {
           ))}
         </div>
 
-        <button type="submit" className="button-submit">
-          Verify OTP
+        <button type="submit" className={`button-submit ${loading ? 'disabled' : ''}`}>
+          {loading ? <span className="flex gap-2 items-center justify-center"><span><Loader size={16} color="#ffffff"/></span>Verifying...</span> : "Verify"}
         </button>
 
         <p className="p mt-4">
-          Didn't get the code? <span className="span cursor-pointer">Resend</span>
+          Didn't get the code?{" "}
+          <span className="span cursor-pointer">Resend</span>
         </p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

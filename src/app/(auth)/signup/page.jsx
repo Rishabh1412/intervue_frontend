@@ -2,16 +2,18 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import '../auth.css';
+import Loader from '@/components/Loader';
 
 const Page = () => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,8 +24,10 @@ const Page = () => {
 
     if (res.ok) {
       alert("Signup successful! Check your email for OTP.");
+      setLoading(false);
       router.push(`/otp?email=${email}`);
     } else {
+      setLoading(false);
       alert(data.message || "Signup failed.");
     }
   };
@@ -79,7 +83,9 @@ const Page = () => {
           />
         </div>
 
-        <button type="submit" className="button-submit">Register</button>
+        <button type="submit" className={`button-submit ${loading ? 'disabled' : ''}`}>
+          {loading ? <span className="flex gap-2 items-center justify-center"><span><Loader size={16} color="#ffffff"/></span>Creating Account</span> : "Create Account"}
+        </button>
 
         <p className="p">
           Already have an account? <a href='/login'><span className="span">Sign In</span></a>
