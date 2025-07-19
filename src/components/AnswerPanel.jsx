@@ -1,6 +1,7 @@
 import React from "react";
+import Loader from "./Loader";
 
-const AnswerPanel = ({ answer, onAnswerChange, onSkip, onSaveNext }) => {
+const AnswerPanel = ({ answer, onAnswerChange, onSkip, onSaveNext, savenextloading, setSavenextloading }) => {
   return (
     <div className="flex flex-col h-full px-4 py-1">
       {/* Answer Input */}
@@ -28,9 +29,9 @@ const AnswerPanel = ({ answer, onAnswerChange, onSkip, onSaveNext }) => {
         </button>
         <button
           onClick={onSaveNext}
-          className="w-1/2 rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 transition"
+          className={`w-1/2 rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 transition ${savenextloading ? 'disabled' : ''}`}
         >
-          Save & Next
+          {savenextloading ? <span className="flex gap-2 items-center justify-center"><span><Loader size={16} color="#ffffff"/></span>Saving...</span> : "Save & Next"}
         </button>
       </div>
     </div>

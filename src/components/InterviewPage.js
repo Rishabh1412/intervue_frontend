@@ -20,6 +20,7 @@ const InterviewPage = () => {
   const [evaluations, setEvaluations] = useState([]); // stores { question, answer, evaluation }
   const [skippedQuestions, setSkippedQuestions] = useState([]);
   const [showSummary, setShowSummary] = useState(false);
+  const [savenextloading, setSavenextloading] = useState(false);
 
   const searchParams = useSearchParams();
 
@@ -136,10 +137,12 @@ const InterviewPage = () => {
   };
 
   const handleSaveNext = async () => {
+    setSavenextloading(true);
     const question = questions[currentIndex];
 
     if (!currentAnswer.trim()) {
       handleSkip(); // Treat empty as skipped
+      setSavenextloading(false);
       return;
     }
 
@@ -157,9 +160,11 @@ const InterviewPage = () => {
     }
 
     if (currentIndex < questions.length - 1) {
+      setSavenextloading(false);
       setCurrentIndex((prev) => prev + 1);
       setCurrentAnswer("");
     } else {
+      setSavenextloading(false);
       setShowSummary(true);
     }
   };
@@ -210,16 +215,19 @@ const InterviewPage = () => {
         if (data.questions.length > 0) {
           data.questions.forEach(async (q) => {
             try {
-              await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/add-question`, {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  question: q.question,
-                  topics: q.topics,
-                  level: q.difficulty,
-                }),
-              });
+              await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/api/auth/add-question`,
+                {
+                  method: "POST",
+                  credentials: "include",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    question: q.question,
+                    topics: q.topics,
+                    level: q.difficulty,
+                  }),
+                }
+              );
             } catch (err) {
               console.warn(
                 "App question save failed (possibly already exists)"
@@ -434,12 +442,14 @@ const InterviewPage = () => {
               onAnswerChange={(val) => setCurrentAnswer(val)}
               onSkip={handleSkip}
               onSaveNext={handleSaveNext}
+              savenextloading={savenextloading}
+              setSavenextloading={setSavenextloading}
             />
           </div>
         </div>
       </div>
       {showSummary && (
-        <div className="absolute top-0 left-0 w-full h-full z-50 bg-white overflow-y-auto p-8">
+        <div className="absolute top-0 left-0 w-full h-full z-50 text-black bg-white overflow-y-auto p-8">
           <h2 className="text-2xl font-bold mb-6">Interview Summary</h2>
 
           <div className="mb-8">
@@ -484,19 +494,26 @@ const InterviewPage = () => {
               ))
             )}
           </div>
-
-          <button
-            onClick={() => {
-              setCurrentIndex(0);
-              setCurrentAnswer("");
-              setSkippedQuestions([]);
-              setEvaluations([]);
-              setShowSummary(false);
-            }}
-            className="bg-purple-700 text-white py-2 px-4 rounded hover:bg-purple-800"
-          >
-            Retake Interview
-          </button>
+          <div className="flex items-center justify-center gap-2">
+            <Link href={"/dashboard"}>
+              <button className="bg-purple-700 hover:bg-purple-800 border-2 border-purple-700 text-white py-2 px-4">
+                Exit
+              </button>
+            </Link>
+            <button
+              onClick={() => {
+                setCurrentIndex(0);
+                setCurrentAnswer("");
+                setSkippedQuestions([]);
+                setEvaluations([]);
+                setShowSummary(false);
+              }}
+              className="border-purple-700 border-2 text-purple-500 py-2 px-4 rounded hover:bg-purple-100"
+            >
+              Retake Interview
+            </button>
+            
+          </div>
         </div>
       )}
     </div>
