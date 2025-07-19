@@ -45,8 +45,8 @@ const page = () => {
         </h1>
       </div>
       <div className="lg:flex w-full gap-3 flex-col rounded-2xl h-full">
-        <div className="w-full gap-2 flex-col flex rounded-xl">
-          <div className="bg-transparent h-full p-8"></div>
+        <div className="w-full gap-2 flex-col flex rounded-xl order-2 lg:order-1">
+          <div className="bg-transparent h-full p-8 hidden lg:block"></div>
           <div className="bg-white rounded-xl shadow-sm h-full p-8 flex justify-between items-center">
             <div>
               <h4 className="text-lg font-semibold  text-gray-800">
@@ -63,7 +63,7 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="w-full bg-white border relative border-gray-200 shadow-sm py-8 px-8 rounded-xl flex flex-col gap-8 overflow-hidden justify-end items-center">
+        <div className="w-full bg-white border relative border-gray-200 shadow-sm py-8 px-8 rounded-xl flex flex-col gap-8 overflow-hidden justify-end items-center order-1 lg:order-2">
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-400 rounded-full blur-3xl opacity-50 z-0"></div>
           <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-purple-300 rounded-full blur-3xl opacity-50 z-0"></div>
           <Link href={"/interview-user-data"}>
@@ -93,8 +93,8 @@ const page = () => {
             </p>
           </div>
         </div>
-        <div className="w-full rounded-xl flex flex-col gap-2">
-          <div className="bg-transparent rounded-xl h-full p-8"></div>
+        <div className="w-full rounded-xl flex flex-col gap-2 order-3 lg:order-3">
+          <div className="bg-transparent rounded-xl hidden lg:block h-full p-8"></div>
           <div className="bg-white rounded-xl shadow-sm h-full p-8">
             <h4 className="text-lg font-semibold text-gray-800 mb-4">
               Previous Interviews

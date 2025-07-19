@@ -34,7 +34,7 @@ const Page = () => {
 
   return (
     <div className="login-page px-4">
-      <form className="form px-8" onSubmit={handleSignup}>
+      <form className="form px-0" onSubmit={handleSignup}>
         <h3 className='w-full text-center font-black text-xl text-[#232323]'>Register</h3>
 
         <div className="flex-column">
