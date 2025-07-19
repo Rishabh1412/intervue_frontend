@@ -8,11 +8,10 @@ import Loader from "@/components/Loader";
 const page = () => {
   const [loading, setLoading] = useState(false);
   const inputs = useRef([]);
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const router = useRouter();
-
     // collect OTP digits from inputs
     const otp = inputs.current.map((input) => input.value).join("");
     if (otp.length < 6) {
@@ -41,7 +40,9 @@ const page = () => {
 
       if (res.ok) {
         alert("OTP verified successfully!");
+        setLoading(false);
         router.push("/user-dashboard");
+        
         // redirect to interview page or wherever needed
       } else {
         setLoading(false);

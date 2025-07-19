@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head />
       <body>
-        <main className="min-h-screen lg:items-center items-start justify-center flex w-full bg-white pt-16 lg:pt-0 lg:bg-white">
+        <main className="min-h-screen lg:items-center items-start justify-center flex w-screen bg-white pt-16 lg:pt-0 lg:bg-white">
           <div className="w-1/2 overflow-hidden hidden lg:block">
             <Image
               src="/img.jpg"
@@ -21,7 +21,9 @@ export default function RootLayout({ children }) {
               priority
             />
           </div>
+          <div className="lg:w-1/2 w-screen">
           {children}
+          </div>
         </main>
       </body>
     </html>
