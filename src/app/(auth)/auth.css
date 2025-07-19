@@ -4,7 +4,8 @@
   gap: 10px;
   background-color: #ffffff;
   padding: 30px;
-  width: 450px;
+  max-width: 450px;
+  width: 100%;
   border-radius: 20px;
 }
 
