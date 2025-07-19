@@ -40,7 +40,7 @@ const Page = () => {
   };
 
   return (
-    <div className="login-page px-4">
+    <div className="login-page">
       <form className="form px-0" onSubmit={handleLogin}>
         <h3 className="w-full text-center font-black text-xl text-[#232323]">
           Login
