@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import TagBlock from "@/components/TagBlock";
 import AnswerPanel from "@/components/AnswerPanel";
 import Link from "next/link";
+import TextSkeletonLoader from "./TextSkeleton";
 
 const InterviewPage = () => {
   const [markedQuestions, setMarkedQuestions] = useState({});
@@ -379,7 +380,7 @@ const InterviewPage = () => {
                   </div>
                   {loading ? (
                     <p className="text-sm text-gray-500 mt-4">
-                      Loading question...
+                      <TextSkeletonLoader/>
                     </p>
                   ) : error ? (
                     <p className="text-sm text-red-500 mt-4">{error}</p>
@@ -533,7 +534,7 @@ const InterviewPage = () => {
             )}
           </div>
           <div className="flex items-center justify-center gap-2">
-            <Link href={"/dashboard"}>
+            <Link href={"/user-dashboard"}>
               <button className="bg-purple-700 hover:bg-purple-800 border-2 border-purple-700 text-white py-2 px-4">
                 Exit
               </button>
