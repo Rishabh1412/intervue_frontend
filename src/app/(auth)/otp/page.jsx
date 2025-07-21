@@ -4,7 +4,7 @@ import { useRef } from "react";
 import "../auth.css";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
-import { ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 
 const page = () => {
   const [loading, setLoading] = useState(false);

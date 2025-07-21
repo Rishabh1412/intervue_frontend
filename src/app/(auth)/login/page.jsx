@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import "../auth.css";
 import Cookies from "js-cookie";
 import Loader from "@/components/Loader";
-import { ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+
 
 const Page = () => {
   const router = useRouter();
