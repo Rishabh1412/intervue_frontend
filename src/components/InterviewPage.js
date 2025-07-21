@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import TagBlock from "@/components/TagBlock";
 import AnswerPanel from "@/components/AnswerPanel";
+import Link from "next/link";
 
 const InterviewPage = () => {
   const [markedQuestions, setMarkedQuestions] = useState({});
@@ -23,6 +24,42 @@ const InterviewPage = () => {
   const [savenextloading, setSavenextloading] = useState(false);
 
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const saveSummaryToDB = async () => {
+      if (!showSummary || evaluations.length === 0) return;
+
+      const payload = {
+        role: searchParams.get("role"),
+        level: searchParams.get("level"),
+        interviewType: searchParams.get("interviewType"),
+        language: searchParams.get("language"),
+        evaluations,
+      };
+
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/protected/interview-summary`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include", // Needed to send cookie for auth
+            body: JSON.stringify(payload),
+          }
+        );
+
+        if (!res.ok) throw new Error("Failed to save summary");
+        const result = await res.json();
+        console.log("Interview summary saved:", result.summary);
+      } catch (err) {
+        console.error("Error saving interview summary:", err);
+      }
+    };
+
+    saveSummaryToDB();
+  }, [showSummary]);
 
   const evaluateAnswer = async () => {
     const question = questions[currentIndex];
@@ -133,6 +170,7 @@ const InterviewPage = () => {
       setCurrentAnswer("");
     } else {
       setShowSummary(true);
+      //call interview-summary  for saving the summary
     }
   };
 
@@ -512,7 +550,6 @@ const InterviewPage = () => {
             >
               Retake Interview
             </button>
-            
           </div>
         </div>
       )}

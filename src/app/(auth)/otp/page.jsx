@@ -4,6 +4,7 @@ import { useRef } from "react";
 import "../auth.css";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
+import { ToastContainer, toast } from "react-toastify";
 
 const page = () => {
   const [loading, setLoading] = useState(false);
@@ -36,22 +37,57 @@ const page = () => {
       );
 
       const { token } = await res.json();
-      localStorage.setItem("token", token);
+      const expiryTime = Date.now() + 60 * 60 * 1000;
+      localStorage.setItem(
+        "token",
+        JSON.stringify({ token, expiry: expiryTime })
+      );
 
       if (res.ok) {
-        alert("OTP verified successfully!");
+        toast.success("OTP verified successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         setLoading(false);
         router.push("/user-dashboard");
-        
+
         // redirect to interview page or wherever needed
       } else {
         setLoading(false);
-        alert(data.message || "Invalid OTP.");
+
+        toast.error(data.message || "Invalid OTP.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
     } catch (err) {
       console.error(err);
       setLoading(false);
-      alert("An error occurred.");
+      toast.error("An error occurred.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
 
     // call your API or handle verification here
@@ -79,7 +115,20 @@ const page = () => {
     }
   };
   return (
-    <div className="login-page w-full">
+    <div className="login-page w-full items-center justify-center flex">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <form className="form px-0" onSubmit={handleSubmit}>
         <h3 className="w-full text-center font-black text-xl text-[#232323]">
           OTP Verification
@@ -105,8 +154,20 @@ const page = () => {
           ))}
         </div>
 
-        <button type="submit" className={`button-submit ${loading ? 'disabled' : ''}`}>
-          {loading ? <span className="flex gap-2 items-center justify-center"><span><Loader size={16} color="#ffffff"/></span>Verifying...</span> : "Verify"}
+        <button
+          type="submit"
+          className={`button-submit ${loading ? "disabled" : ""}`}
+        >
+          {loading ? (
+            <span className="flex gap-2 items-center justify-center">
+              <span>
+                <Loader size={16} color="#ffffff" />
+              </span>
+              Verifying...
+            </span>
+          ) : (
+            "Verify"
+          )}
         </button>
 
         <p className="p mt-4">

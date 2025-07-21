@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
               priority
             />
           </div>
-          <div className="">
+          <div className="w-screen md:w-1/2">
           {children}
           </div>
         </main>
