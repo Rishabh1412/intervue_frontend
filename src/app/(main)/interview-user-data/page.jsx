@@ -1,13 +1,19 @@
-
+"use client";
 import InterviewForm from "@/components/InterviewForm";
+import Loader from "@/components/Loader";
 import ProtectedPageWrapper from "@/components/ProtectedPageWrapper";
-import React from "react";
-
+import React, { useState } from "react";
 
 const page = () => {
+  const [loading, setLoading] = useState(false);
   return (
     <>
-    <ProtectedPageWrapper>
+      <ProtectedPageWrapper>
+        {loading && (
+          <div className="fixed inset-0 z-50 bg-black/20 flex items-center justify-center">
+            <Loader size={32} color="#b669fd" />
+          </div>
+        )}
         <div
           className="w-screen h-screen flex items-center justify-center"
           style={{
@@ -22,10 +28,10 @@ const page = () => {
           }}
         >
           <div className="max-w-lg flex flex-col items-center justify-center mx-auto bg-white text-black-dark py-4 rounded-xl px-4 md:px-8">
-            <InterviewForm />
+            <InterviewForm loading={loading} setLoading={setLoading} />
           </div>
         </div>
-        </ProtectedPageWrapper>
+      </ProtectedPageWrapper>
     </>
   );
 };

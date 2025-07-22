@@ -541,7 +541,7 @@ const InterviewPage = () => {
           </div>
           <div className="flex items-center justify-center gap-2">
             <Link href={"/user-dashboard"}>
-              <button className="bg-purple-700 hover:bg-purple-800 border-2 border-purple-700 text-white py-2 px-4">
+              <button className="bg-purple-700 hover:bg-purple-800 border-2 rounded border-purple-700 text-white py-2 px-4">
                 Exit
               </button>
             </Link>

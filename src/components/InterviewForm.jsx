@@ -7,8 +7,8 @@ import { interviewSchema } from "../schemas/interview";
 import { useRouter } from "next/navigation";
 import LoadingScreen from "./LoadingScreen"; // Make sure this path is correct
 
-const InterviewForm = () => {
-  const [loading, setLoading] = useState(false);
+const InterviewForm = ({loading,setLoading}) => {
+  
   const router = useRouter();
 
   const {
@@ -44,10 +44,6 @@ const InterviewForm = () => {
 
     setLoading(false);
   };
-
-  if (loading) {
-    return <LoadingScreen />;
-  }
 
   return (
     <div>
