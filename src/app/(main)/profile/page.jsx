@@ -53,7 +53,7 @@ const ProfilePage = () => {
   };
 
   if (loading) {
-    return <div className="p-8 text-gray-500">Loading...</div>;
+    return <div className="p-8 h-screen w-screen items-center justify-center fixed flex bg-white text-gray-900">Loading...</div>;
   }
 
   return (
@@ -85,6 +85,9 @@ const ProfilePage = () => {
                     </p>
                     <p className="text-sm text-purple-700">
                       Topic: {int.interviewType} | Score: {int.overallScore}/10
+                    </p>
+                    <p className="text-md text-purple-700">
+                      Role: {int.role} | Level: {int.level}
                     </p>
                   </li>
                 ))}
