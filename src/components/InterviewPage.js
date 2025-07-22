@@ -35,7 +35,13 @@ const InterviewPage = () => {
         level: searchParams.get("level"),
         interviewType: searchParams.get("interviewType"),
         language: searchParams.get("language"),
-        evaluations,
+        evaluations: evaluations.map((e) => ({
+        question: e.question,
+        userAnswer: e.answer, // ✅ This was 'answer' before, now fixed
+        score: e.evaluation.score,
+        feedback: e.evaluation.feedback,
+        suggestion: e.evaluation.suggestion,
+      })),
       };
 
       try {
