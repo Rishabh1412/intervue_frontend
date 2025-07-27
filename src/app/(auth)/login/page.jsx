@@ -6,6 +6,21 @@ import Cookies from "js-cookie";
 import Loader from "@/components/Loader";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 
+// app/(auth)/login/page.jsx
+
+export const metadata = {
+  title: "Login",
+  description: "Access your Intervue dashboard to manage interviews and view summaries.",
+  keywords: ["Login", "Intervue", "Interview App Login", "Auth"],
+  openGraph: {
+    title: "Login | Intervue",
+    description: "Securely login to your Intervue account and access all features.",
+    url: "https://intervue-frontend-gamma.vercel.app/login",
+    siteName: "Intervue",
+    type: "website",
+  },
+};
+
 
 const Page = () => {
   const router = useRouter();
@@ -142,7 +157,8 @@ transition: Bounce,
 
         <button
           type="submit"
-          className={`button-submit ${loading ? "disabled" : ""}`}
+          disabled={loading}
+          className={`button-submit disabled:bg-gray-700 ${loading ? "disabled" : ""}`}
         >
           {loading ? (
             <span className="flex gap-2 items-center justify-center">

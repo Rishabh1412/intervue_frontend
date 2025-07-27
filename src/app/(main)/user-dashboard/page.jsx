@@ -3,6 +3,21 @@ import ProtectedPageWrapper from "@/components/ProtectedPageWrapper";
 import Link from "next/link";
 import React, { use, useEffect, useState } from "react";
 
+// app/(main)/user-dashboard/page.jsx
+
+export const metadata = {
+  title: "Dashboard",
+  description: "Access your Intervue dashboard. Manage interviews, view summaries, and track performance.",
+  keywords: ["Dashboard", "User Panel", "Interview Insights", "Intervue"],
+  openGraph: {
+    title: "Dashboard | Intervue",
+    description: "Your personal Intervue dashboard to manage and review interviews.",
+    url: "https://intervue-frontend-gamma.vercel.app/user-dashboard",
+    siteName: "Intervue",
+    type: "website",
+  },
+};
+
 const page = () => {
   const [username, setUsername] = useState(null);
   const [lastInterview, setLastInterview] = useState(null);
@@ -61,7 +76,7 @@ const page = () => {
 
   return (
     <ProtectedPageWrapper>
-      <div className="flex flex-col h-screen w-screen items-center md:px-10 px-2 py-4 bg-[#F6F4FB]">
+      <div className="flex flex-col min-h-screen w-screen items-center md:px-10 px-2 py-4 bg-[#F6F4FB]">
         <div className="w-full px-4 py-4 mt-12">
           <h1 className="font-bold text-3xl text-[#232323]">
             <span className="text-purple-500">Hi,</span> {username}

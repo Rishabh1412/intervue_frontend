@@ -6,6 +6,21 @@ import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 
+// app/(auth)/otp/page.jsx
+
+export const metadata = {
+  title: "OTP Verification",
+  description: "Enter the OTP sent to your email to verify and access your Intervue account.",
+  keywords: ["OTP", "Login Verification", "Secure Auth", "Intervue"],
+  openGraph: {
+    title: "OTP Verification | Intervue",
+    description: "Securely verify your identity with OTP to access Intervue.",
+    url: "https://intervue-frontend-gamma.vercel.app/otp",
+    siteName: "Intervue",
+    type: "website",
+  },
+};
+
 const page = () => {
   const [loading, setLoading] = useState(false);
   const inputs = useRef([]);
@@ -156,7 +171,8 @@ const page = () => {
 
         <button
           type="submit"
-          className={`button-submit ${loading ? "disabled" : ""}`}
+          disabled={loading}
+          className={`button-submit disabled:bg-gray-700 ${loading ? "disabled" : ""}`}
         >
           {loading ? (
             <span className="flex gap-2 items-center justify-center">

@@ -29,7 +29,8 @@ const AnswerPanel = ({ answer, onAnswerChange, onSkip, onSaveNext, savenextloadi
         </button>
         <button
           onClick={onSaveNext}
-          className={`w-1/2 rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 transition ${savenextloading ? 'disabled' : ''}`}
+          disabled={savenextloading}
+          className={`w-1/2 rounded-md disabled:bg-purple-900 bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 transition ${savenextloading ? 'disabled' : ''}`}
         >
           {savenextloading ? <span className="flex gap-2 items-center justify-center"><span><Loader size={16} color="#ffffff"/></span>Saving...</span> : "Save & Next"}
         </button>
