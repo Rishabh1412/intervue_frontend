@@ -63,7 +63,7 @@ const page = () => {
 
   return (
     <ProtectedPageWrapper>
-      <div className="flex flex-col min-h-screen w-screen items-center md:px-10 px-2 py-4 bg-[#F6F4FB]">
+      <div className="flex flex-col min-h-screen h-screen w-screen items-center md:px-10 px-2 py-4 bg-[#F6F4FB]">
         <div className="w-full px-4 py-4 mt-12">
           <h1 className="font-bold text-3xl text-[#232323]">
             <span className="text-purple-500">Hi,</span> {username}
